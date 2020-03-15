@@ -82,15 +82,35 @@ def add_tiles_to_map(the_map):
     folium.TileLayer('openstreetmap').add_to(the_map)
 
 
-def get_min_max(data, countries, log=True):
-    """Get min/max for cases for selected countries."""
+def get_min_max(data, countries, column, log=True):
+    """Get min/max for cases for selected countries.
+
+    Parameters
+    ----------
+    data : object like :class:`pandas.DataFrame`
+        The raw data to get min/max for.
+    countries : list of strings
+        The countries we are considering.
+    column : string
+        The column with values we are going to use.
+    log : boolean, optional
+        If True, we will log scale the data.
+
+    Returns
+    -------
+    min_value : float
+        The minimum value found.
+    max_value : float
+        The maximum value found.
+
+    """
     min_value = 0.0
     max_value = 0.0
     for country in countries:
         datai = data.loc[data['CountryExp'] == country]
         if len(datai) == 0:
             continue
-        values = datai['cases'].values
+        values = datai[column].values
         if log:
             values = do_log(values)
         min_value = min(min_value, min(values))
@@ -108,18 +128,19 @@ def get_country_id(country, geojson):
     return None
 
 
-def add_cases_to_geojson(data, geojson):
+def add_cases_to_geojson(data, geojson, column):
     """Add cases to the geojson properties field."""
     for feature in geojson['features']:
         name = feature['properties']['name'].lower()
         datai = data.loc[data['CountryExp'] == name]
         if len(datai) == 0:
-            feature['properties']['cases'] = 'Missing data'
+            feature['properties'][column] = 'Missing data'
         else:
-            feature['properties']['cases'] = datai['cases'].values[0]
+            feature['properties'][column] = str(datai[column].values[0])
 
 
-def create_style(data, geojson, countries, color_map, log=False):
+def create_style(data, geojson, column, countries, color_map,
+                 log=False, threshold=None):
     """Create styles based on number of cases.
 
     Parameters
@@ -128,10 +149,14 @@ def create_style(data, geojson, countries, color_map, log=False):
         The data we are to present.
     geojson : dict
         The geo json data we are to display.
+    column : string
+        The column with values we are going to use.
     color_map : object like :class:`branca.colormap.ColorMap`
         The color map we are to use.
     log : boolean
         If True, we will log-scale the data.
+    threshold : float, optional
+        If given, we will not show values below this value.
 
     Returns
     -------
@@ -145,7 +170,7 @@ def create_style(data, geojson, countries, color_map, log=False):
         datai = data.loc[data['CountryExp'] == country]
         if len(datai) == 0:
             continue
-        values = datai['cases'].values
+        values = datai[column].values
         if log:
             values = do_log(values)
         # Get id for country:
@@ -154,8 +179,16 @@ def create_style(data, geojson, countries, color_map, log=False):
             continue
         style = []
         for val in values:
-            opacity = 0 if np.isnan(val) else OPACITY
-            color = '#ffffff'if np.isnan(val) else color_map(val)
+            if np.isnan(val):
+                opacity = 0
+                color = '#ffffff'
+            else:
+                if threshold is not None and val < threshold:
+                    opacity = 0
+                    color = '#ffffff'
+                else:
+                    opacity = OPACITY
+                    color = color_map(val)
             style.append(
                 {
                     'color': color,
@@ -166,9 +199,10 @@ def create_style(data, geojson, countries, color_map, log=False):
     return style_dict
 
 
-def create_style_dicts(data, geojson, countries=None,
+def create_style_dicts(data, geojson, column, countries=None,
                        log=False, color_map_name='Reds_03',
-                       min_value=None, max_value=None):
+                       min_value=None, max_value=None,
+                       threshold=None):
     """Create style dicts for the given countries.
 
     Parameters
@@ -177,6 +211,8 @@ def create_style_dicts(data, geojson, countries=None,
         The data we are to present.
     geojson : dict
         The geo json data we are to display.
+    column : string
+        The column with values we are going to use.
     countries : list of strings, optional
         The countries we are to display. If None is given,
         all possible countries will be used.
@@ -188,6 +224,8 @@ def create_style_dicts(data, geojson, countries=None,
         Minimum value for the color scale.
     max_value : float, optional
         Maximum value for the color scale.
+    threshold : float, optional
+        If given, then we will not show values below this value.
 
     Returns
     -------
@@ -199,7 +237,7 @@ def create_style_dicts(data, geojson, countries=None,
     """
     if countries is None:
         countries = list(sorted(data['CountryExp'].unique()))
-    mini, maxi = get_min_max(data, countries, log=log)
+    mini, maxi = get_min_max(data, countries, column, log=log)
     if min_value is None:
         min_value = mini
     if max_value is None:
@@ -210,7 +248,8 @@ def create_style_dicts(data, geojson, countries=None,
         vmin=min_value,
         vmax=max_value,
     )
-    style_dict = create_style(data, geojson, countries, linear, log=log)
+    style_dict = create_style(data, geojson, column, countries, linear,
+                              log=log, threshold=threshold)
     return style_dict, linear
 
 
@@ -248,14 +287,19 @@ def create_folium_map(geojson, data, map_settings):
 
     use_logscale = map_settings.get('logscale', True)
 
+    column = map_settings.get('column', 'cases')
+    column_name = map_settings.get('column_name', 'Cases')
+
     styles, color_map = create_style_dicts(
         data,
         geojson,
+        column,
         countries=None,
         log=use_logscale,
         color_map_name=map_settings.get('color_map', 'Reds_03'),
         min_value=map_settings.get('min_value', None),
         max_value=map_settings.get('max_value', None),
+        threshold=map_settings.get('threshold', None),
     )
     # Limit to one style per country:
     style_dict = {}
@@ -267,11 +311,11 @@ def create_folium_map(geojson, data, map_settings):
         style_dict=style_dict,
     )
 
-    add_cases_to_geojson(data, geojson)
+    add_cases_to_geojson(data, geojson, column)
 
     tool = folium.GeoJsonTooltip(
-        fields=['name', 'cases'],
-        aliases=['Country', 'Cases'],
+        fields=['name', column],
+        aliases=['Country', column_name],
         style=('font-size: 14px;'),
         labels=True,
     )
@@ -293,34 +337,11 @@ def create_folium_map(geojson, data, map_settings):
     return the_map
 
 
-def extract_data_values(data, value_key):
-    """Extract value from a pandas.DataFrame
-
-    Parmeters
-    ---------
-    data : dict
-        The raw data.
-    value_key : string
-        A column in data which contains the values we are to extract.
-
-    Returns
-    -------
-    values : dict
-        A dict where the keys are the id's found in data_key and
-        the values are the correconding values from data_value.
-
-    """
-    values = {}
-    for key in data:
-        values[key] = data[key][value_key]
-    return values
-
-
 def do_log(values):
     """Apply log to the given values."""
     log = []
     for i in values:
-        if i == 0:
+        if i <= 0:
             log.append(float('nan'))
         else:
             log.append(np.log2(i))
@@ -355,7 +376,19 @@ def create_folium_choropleth(geojson, data, map_settings):
 
     countries = list(sorted(data['CountryExp'].unique()))
 
-    min_value, max_value = get_min_max(data, countries, log=use_logscale)
+    column = map_settings.get('column', 'cases')
+    column_name = map_settings.get('column_name', 'Cases')
+
+    print('Log:', use_logscale)
+    print('Column:', column)
+
+    min_value = map_settings.get('min_value', None)
+    max_value = map_settings.get('max_value', None)
+    mini, maxi = get_min_max(data, countries, column, log=use_logscale)
+    if min_value is None:
+        min_value = mini
+    if max_value is None:
+        max_value = maxi
     # Create color map:
     color_map_name = map_settings.get('color_map', 'Reds_03')
     color_map = cm.LinearColormap(
@@ -364,8 +397,15 @@ def create_folium_choropleth(geojson, data, map_settings):
         vmax=max_value,
     )
     # Create styles for selected countries:
-    styles = create_style(data, geojson, countries, color_map,
-                          log=use_logscale)
+    styles = create_style(
+        data,
+        geojson,
+        column,
+        countries,
+        color_map,
+        log=use_logscale,
+        threshold=map_settings.get('threshold', None)
+    )
     dates = (data['DateRep'].unique().astype(int) // 10**9).astype('U10')
     # Restructure style dict to contain dates:
     style_dict = {}
@@ -380,8 +420,8 @@ def create_folium_choropleth(geojson, data, map_settings):
     ).add_to(the_map)
 
     if use_logscale:
-        color_map.caption = 'Cases (log2 scale)'
+        color_map.caption = '{} (log2 scale)'.format(column_name)
     else:
-        color_map.caption = 'Cases'
+        color_map.caption = column_name
     the_map.add_child(color_map)
     return the_map

@@ -124,3 +124,4 @@ def print_missing_countries(data, country_map):
         print('Missing geo json features:')
         for i in missing:
             print('\t- {}'.format(i))
+    return missing
