@@ -7,3 +7,5 @@ data is obtained from the
 [European Centre for Disease Prevention and Control](https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide).
 
 ![anim](map.gif)
+
+![anim](map2.gif)
