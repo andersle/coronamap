@@ -134,7 +134,7 @@ def add_cases_to_geojson(data, geojson, column):
         name = feature['properties']['name'].lower()
         datai = data.loc[data['CountryExp'] == name]
         if len(datai) == 0:
-            feature['properties'][column] = 'Missing data'
+            feature['properties'][column] = '0'
         else:
             feature['properties'][column] = str(datai[column].values[0])
 
