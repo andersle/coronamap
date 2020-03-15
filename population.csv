@@ -1,0 +1,236 @@
+,Index,Variant,Region,Country code,Type,Population_2020
+0,27,Estimates,Burundi,108,Country/Area,11890.781
+1,28,Estimates,Comoros,174,Country/Area,869.595
+2,29,Estimates,Djibouti,262,Country/Area,988.002
+3,30,Estimates,Eritrea,232,Country/Area,3546.427
+4,31,Estimates,Ethiopia,231,Country/Area,114963.583
+5,32,Estimates,Kenya,404,Country/Area,53771.3
+6,33,Estimates,Madagascar,450,Country/Area,27691.019
+7,34,Estimates,Malawi,454,Country/Area,19129.955
+8,35,Estimates,Mauritius,480,Country/Area,1271.767
+9,36,Estimates,Mayotte,175,Country/Area,272.813
+10,37,Estimates,Mozambique,508,Country/Area,31255.435
+11,38,Estimates,Réunion,638,Country/Area,895.308
+12,39,Estimates,Rwanda,646,Country/Area,12952.209
+13,40,Estimates,Seychelles,690,Country/Area,98.34
+14,41,Estimates,Somalia,706,Country/Area,15893.219
+15,42,Estimates,South Sudan,728,Country/Area,11193.729
+16,43,Estimates,Uganda,800,Country/Area,45741.0
+17,44,Estimates,United Republic of Tanzania,834,Country/Area,59734.213
+18,45,Estimates,Zambia,894,Country/Area,18383.956
+19,46,Estimates,Zimbabwe,716,Country/Area,14862.927
+20,48,Estimates,Angola,24,Country/Area,32866.268
+21,49,Estimates,Cameroon,120,Country/Area,26545.864
+22,50,Estimates,Central African Republic,140,Country/Area,4829.764
+23,51,Estimates,Chad,148,Country/Area,16425.859
+24,52,Estimates,Congo,178,Country/Area,5518.092
+25,53,Estimates,Democratic Republic of the Congo,180,Country/Area,89561.404
+26,54,Estimates,Equatorial Guinea,226,Country/Area,1402.985
+27,55,Estimates,Gabon,266,Country/Area,2225.728
+28,56,Estimates,Sao Tome and Principe,678,Country/Area,219.161
+29,58,Estimates,Botswana,72,Country/Area,2351.625
+30,59,Estimates,Swaziland,748,Country/Area,1160.164
+31,60,Estimates,Lesotho,426,Country/Area,2142.252
+32,61,Estimates,Namibia,516,Country/Area,2540.916
+33,62,Estimates,South Africa,710,Country/Area,59308.69
+34,64,Estimates,Benin,204,Country/Area,12123.198
+35,65,Estimates,Burkina Faso,854,Country/Area,20903.278
+36,66,Estimates,Cabo Verde,132,Country/Area,555.988
+37,67,Estimates,Cote divoire,384,Country/Area,26378.275
+38,68,Estimates,Gambia,270,Country/Area,2416.664
+39,69,Estimates,Ghana,288,Country/Area,31072.945
+40,70,Estimates,Guinea,324,Country/Area,13132.792
+41,71,Estimates,Guinea-Bissau,624,Country/Area,1967.998
+42,72,Estimates,Liberia,430,Country/Area,5057.677
+43,73,Estimates,Mali,466,Country/Area,20250.834
+44,74,Estimates,Mauritania,478,Country/Area,4649.66
+45,75,Estimates,Niger,562,Country/Area,24206.636
+46,76,Estimates,Nigeria,566,Country/Area,206139.587
+47,77,Estimates,Saint Helena,654,Country/Area,6.071
+48,78,Estimates,Senegal,686,Country/Area,16743.93
+49,79,Estimates,Sierra Leone,694,Country/Area,7976.985
+50,80,Estimates,Togo,768,Country/Area,8278.737
+51,83,Estimates,Algeria,12,Country/Area,43851.043
+52,84,Estimates,Egypt,818,Country/Area,102334.403
+53,85,Estimates,Libya,434,Country/Area,6871.287
+54,86,Estimates,Morocco,504,Country/Area,36910.558
+55,87,Estimates,Sudan,729,Country/Area,43849.269
+56,88,Estimates,Tunisia,788,Country/Area,11818.618
+57,89,Estimates,Western Sahara,732,Country/Area,597.33
+58,91,Estimates,Armenia,51,Country/Area,2963.234
+59,92,Estimates,Azerbaijan,31,Country/Area,10139.175
+60,93,Estimates,Bahrain,48,Country/Area,1701.583
+61,94,Estimates,Cyprus,196,Country/Area,1207.361
+62,95,Estimates,Georgia,268,Country/Area,3989.175
+63,96,Estimates,Iraq,368,Country/Area,40222.503
+64,97,Estimates,Israel,376,Country/Area,8655.541
+65,98,Estimates,Jordan,400,Country/Area,10203.14
+66,99,Estimates,Kuwait,414,Country/Area,4270.563
+67,100,Estimates,Lebanon,422,Country/Area,6825.442
+68,101,Estimates,Oman,512,Country/Area,5106.622
+69,102,Estimates,Qatar,634,Country/Area,2881.06
+70,103,Estimates,Saudi Arabia,682,Country/Area,34813.867
+71,104,Estimates,Palestine,275,Country/Area,5101.416
+72,105,Estimates,Syrian Arab Republic,760,Country/Area,17500.657
+73,106,Estimates,Turkey,792,Country/Area,84339.067
+74,107,Estimates,United Arab Emirates,784,Country/Area,9890.4
+75,108,Estimates,Yemen,887,Country/Area,29825.968
+76,111,Estimates,Kazakhstan,398,Country/Area,18776.707
+77,112,Estimates,Kyrgyzstan,417,Country/Area,6524.191
+78,113,Estimates,Tajikistan,762,Country/Area,9537.642
+79,114,Estimates,Turkmenistan,795,Country/Area,6031.187
+80,115,Estimates,Uzbekistan,860,Country/Area,33469.199
+81,117,Estimates,Afghanistan,4,Country/Area,38928.341
+82,118,Estimates,Bangladesh,50,Country/Area,164689.383
+83,119,Estimates,Bhutan,64,Country/Area,771.612
+84,120,Estimates,India,356,Country/Area,1380004.385
+85,121,Estimates,Iran,364,Country/Area,83992.953
+86,122,Estimates,Maldives,462,Country/Area,540.542
+87,123,Estimates,Nepal,524,Country/Area,29136.808
+88,124,Estimates,Pakistan,586,Country/Area,220892.331
+89,125,Estimates,Sri Lanka,144,Country/Area,21413.25
+90,128,Estimates,China,156,Country/Area,1439323.774
+91,129,Estimates,"China, Hong Kong SAR",344,Country/Area,7496.988
+92,130,Estimates,"China, Macao SAR",446,Country/Area,649.342
+93,131,Estimates,Taiwan,158,Country/Area,23816.775
+94,132,Estimates,Dem. People's Republic of Korea,408,Country/Area,25778.815
+95,133,Estimates,Japan,392,Country/Area,126476.458
+96,134,Estimates,Mongolia,496,Country/Area,3278.292
+97,135,Estimates,South Korea,410,Country/Area,51269.183
+98,137,Estimates,Brunei Darussalam,96,Country/Area,437.483
+99,138,Estimates,Cambodia,116,Country/Area,16718.971
+100,139,Estimates,Indonesia,360,Country/Area,273523.621
+101,140,Estimates,Lao People's Democratic Republic,418,Country/Area,7275.556
+102,141,Estimates,Malaysia,458,Country/Area,32365.998
+103,142,Estimates,Myanmar,104,Country/Area,54409.794
+104,143,Estimates,Philippines,608,Country/Area,109581.085
+105,144,Estimates,Singapore,702,Country/Area,5850.343
+106,145,Estimates,Thailand,764,Country/Area,69799.978
+107,146,Estimates,Timor-Leste,626,Country/Area,1318.442
+108,147,Estimates,Vietnam,704,Country/Area,97338.583
+109,150,Estimates,Anguilla,660,Country/Area,15.002
+110,151,Estimates,Antigua and Barbuda,28,Country/Area,97.928
+111,152,Estimates,Aruba,533,Country/Area,106.766
+112,153,Estimates,Bahamas,44,Country/Area,393.248
+113,154,Estimates,Barbados,52,Country/Area,287.371
+114,155,Estimates,"Bonaire, Sint Eustatius and Saba",535,Country/Area,26.221
+115,156,Estimates,British Virgin Islands,92,Country/Area,30.237
+116,157,Estimates,Cayman Islands,136,Country/Area,65.72
+117,158,Estimates,Cuba,192,Country/Area,11326.616
+118,159,Estimates,Curaçao,531,Country/Area,164.1
+119,160,Estimates,Dominica,212,Country/Area,71.991
+120,161,Estimates,Dominican Republic,214,Country/Area,10847.904
+121,162,Estimates,Grenada,308,Country/Area,112.519
+122,163,Estimates,Guadeloupe,312,Country/Area,400.127
+123,164,Estimates,Haiti,332,Country/Area,11402.533
+124,165,Estimates,Jamaica,388,Country/Area,2961.161
+125,166,Estimates,Martinique,474,Country/Area,375.265
+126,167,Estimates,Montserrat,500,Country/Area,4.999
+127,168,Estimates,Puerto Rico,630,Country/Area,2860.84
+128,169,Estimates,Saint Barthélemy,652,Country/Area,9.885
+129,170,Estimates,Saint Kitts and Nevis,659,Country/Area,53.192
+130,171,Estimates,Saint Lucia,662,Country/Area,183.629
+131,172,Estimates,Saint Martin (French part),663,Country/Area,38.659
+132,173,Estimates,Saint Vincent and the Grenadines,670,Country/Area,110.947
+133,174,Estimates,Sint Maarten (Dutch part),534,Country/Area,42.882
+134,175,Estimates,Trinidad and Tobago,780,Country/Area,1399.491
+135,176,Estimates,Turks and Caicos Islands,796,Country/Area,38.718
+136,177,Estimates,United States Virgin Islands,850,Country/Area,104.423
+137,179,Estimates,Belize,84,Country/Area,397.621
+138,180,Estimates,Costa Rica,188,Country/Area,5094.114
+139,181,Estimates,El Salvador,222,Country/Area,6486.201
+140,182,Estimates,Guatemala,320,Country/Area,17915.567
+141,183,Estimates,Honduras,340,Country/Area,9904.608
+142,184,Estimates,Mexico,484,Country/Area,128932.753
+143,185,Estimates,Nicaragua,558,Country/Area,6624.554
+144,186,Estimates,Panama,591,Country/Area,4314.768
+145,188,Estimates,Argentina,32,Country/Area,45195.777
+146,189,Estimates,Bolivia,68,Country/Area,11673.029
+147,190,Estimates,Brazil,76,Country/Area,212559.409
+148,191,Estimates,Chile,152,Country/Area,19116.209
+149,192,Estimates,Colombia,170,Country/Area,50882.884
+150,193,Estimates,Ecuador,218,Country/Area,17643.06
+151,194,Estimates,Falkland Islands (Malvinas),238,Country/Area,3.483
+152,195,Estimates,French Guiana,254,Country/Area,298.682
+153,196,Estimates,Guyana,328,Country/Area,786.559
+154,197,Estimates,Paraguay,600,Country/Area,7132.53
+155,198,Estimates,Peru,604,Country/Area,32971.846
+156,199,Estimates,Suriname,740,Country/Area,586.634
+157,200,Estimates,Uruguay,858,Country/Area,3473.727
+158,201,Estimates,Venezuela,862,Country/Area,28435.943
+159,203,Estimates,Australia,36,Country/Area,25499.881
+160,204,Estimates,New Zealand,554,Country/Area,4822.233
+161,207,Estimates,Fiji,242,Country/Area,896.444
+162,208,Estimates,New Caledonia,540,Country/Area,285.491
+163,209,Estimates,Papua New Guinea,598,Country/Area,8947.027
+164,210,Estimates,Solomon Islands,90,Country/Area,686.878
+165,211,Estimates,Vanuatu,548,Country/Area,307.15
+166,213,Estimates,Guam,316,Country/Area,168.783
+167,214,Estimates,Kiribati,296,Country/Area,119.446
+168,215,Estimates,Marshall Islands,584,Country/Area,59.194
+169,216,Estimates,Micronesia (Fed. States of),583,Country/Area,115.021
+170,217,Estimates,Nauru,520,Country/Area,10.834
+171,218,Estimates,Northern Mariana Islands,580,Country/Area,57.557
+172,219,Estimates,Palau,585,Country/Area,18.092
+173,221,Estimates,American Samoa,16,Country/Area,55.197
+174,222,Estimates,Cook Islands,184,Country/Area,17.564
+175,223,Estimates,French Polynesia,258,Country/Area,280.904
+176,224,Estimates,Niue,570,Country/Area,1.618
+177,225,Estimates,Samoa,882,Country/Area,198.41
+178,226,Estimates,Tokelau,772,Country/Area,1.35
+179,227,Estimates,Tonga,776,Country/Area,105.697
+180,228,Estimates,Tuvalu,798,Country/Area,11.792
+181,229,Estimates,Wallis and Futuna Islands,876,Country/Area,11.246
+182,233,Estimates,Belarus,112,Country/Area,9449.321
+183,234,Estimates,Bulgaria,100,Country/Area,6948.445
+184,235,Estimates,czech republic,203,Country/Area,10708.982
+185,236,Estimates,Hungary,348,Country/Area,9660.35
+186,237,Estimates,Poland,616,Country/Area,37846.605
+187,238,Estimates,Moldova,498,Country/Area,4033.963
+188,239,Estimates,Romania,642,Country/Area,19237.682
+189,240,Estimates,Russia,643,Country/Area,145934.46
+190,241,Estimates,Slovakia,703,Country/Area,5459.643
+191,242,Estimates,Ukraine,804,Country/Area,43733.759
+192,244,Estimates,Channel Islands,830,Country/Area,173.859
+193,245,Estimates,Denmark,208,Country/Area,5792.203
+194,246,Estimates,Estonia,233,Country/Area,1326.539
+195,247,Estimates,Faroe Islands,234,Country/Area,48.865
+196,248,Estimates,Finland,246,Country/Area,5540.718
+197,249,Estimates,Iceland,352,Country/Area,341.25
+198,250,Estimates,Ireland,372,Country/Area,4937.796
+199,251,Estimates,Isle of Man,833,Country/Area,85.032
+200,252,Estimates,Latvia,428,Country/Area,1886.202
+201,253,Estimates,Lithuania,440,Country/Area,2722.291
+202,254,Estimates,Norway,578,Country/Area,5421.242
+203,255,Estimates,Sweden,752,Country/Area,10099.27
+204,256,Estimates,United Kingdom,826,Country/Area,67886.004
+205,258,Estimates,Albania,8,Country/Area,2877.8
+206,259,Estimates,Andorra,20,Country/Area,77.265
+207,260,Estimates,Bosnia and Herzegovina,70,Country/Area,3280.815
+208,261,Estimates,Croatia,191,Country/Area,4105.268
+209,262,Estimates,Gibraltar,292,Country/Area,33.691
+210,263,Estimates,Greece,300,Country/Area,10423.056
+211,264,Estimates,Holy See,336,Country/Area,0.809
+212,265,Estimates,Italy,380,Country/Area,60461.828
+213,266,Estimates,Malta,470,Country/Area,441.539
+214,267,Estimates,Montenegro,499,Country/Area,628.062
+215,268,Estimates,North Macedonia,807,Country/Area,2083.38
+216,269,Estimates,Portugal,620,Country/Area,10196.707
+217,270,Estimates,San Marino,674,Country/Area,33.938
+218,271,Estimates,Serbia,688,Country/Area,8737.37
+219,272,Estimates,Slovenia,705,Country/Area,2078.932
+220,273,Estimates,Spain,724,Country/Area,46754.783
+221,275,Estimates,Austria,40,Country/Area,9006.4
+222,276,Estimates,Belgium,56,Country/Area,11589.616
+223,277,Estimates,France,250,Country/Area,65273.512
+224,278,Estimates,Germany,276,Country/Area,83783.945
+225,279,Estimates,Liechtenstein,438,Country/Area,38.137
+226,280,Estimates,Luxembourg,442,Country/Area,625.976
+227,281,Estimates,Monaco,492,Country/Area,39.244
+228,282,Estimates,Netherlands,528,Country/Area,17134.873
+229,283,Estimates,Switzerland,756,Country/Area,8654.618
+230,285,Estimates,Bermuda,60,Country/Area,62.273
+231,286,Estimates,Canada,124,Country/Area,37742.157
+232,287,Estimates,Greenland,304,Country/Area,56.772
+233,288,Estimates,Saint Pierre and Miquelon,666,Country/Area,5.795
+234,289,Estimates,United States of America,840,Country/Area,331002.647
