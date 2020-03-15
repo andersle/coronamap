@@ -329,9 +329,9 @@ def create_folium_map(geojson, data, map_settings):
     ).add_to(the_map)
 
     if use_logscale:
-        color_map.caption = 'Cases (log2 scale)'
+        color_map.caption = '{} (log2 scale)'.format(column_name)
     else:
-        color_map.caption = 'Cases'
+        color_map.caption = column_name
     the_map.add_child(color_map)
     folium.LayerControl().add_to(the_map)
     return the_map
