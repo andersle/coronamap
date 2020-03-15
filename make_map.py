@@ -67,6 +67,13 @@ def read_raw_data(filename):
     return data, dates
 
 
+def read_population(filename='population.csv'):
+    """Read population data."""
+    data = pd.read_csv(filename)
+    data['Region'] = data['Region'].str.lower()
+    return data
+
+
 def add_cumulative(raw_data, dates):
     """Add cumulative data."""
     # Sort data by date and country:
@@ -111,6 +118,37 @@ def add_cumulative(raw_data, dates):
         data.loc[data['CountryExp'] == country, 'cases'] = cases
         data.loc[data['CountryExp'] == country, 'deaths'] = deaths
     return data
+
+
+def norm_population(data, population):
+    """Normalize data by population."""
+    countries = list(sorted(data['CountryExp'].unique()))
+    data['cases_per_capita'] = float('nan')
+    data['deaths_per_capita'] = float('nan')
+    data['new_cases_per_capita'] = float('nan')
+    data['new_deaths_per_capita'] = float('nan')
+    for country in countries:
+        pop = population.loc[population['Region'] == country]
+        if len(pop) != 1:
+            continue
+        capita = pop['Population_2020'].values[0]
+        datai = data.loc[data['CountryExp'] == country]
+        cases = datai['cases'].values
+        deaths = datai['deaths'].values
+        new_cases = datai['NewConfCases'].values
+        new_deaths = datai['NewDeaths'].values
+        data.loc[
+            data['CountryExp'] == country, 'cases_per_capita'
+        ] = cases / capita
+        data.loc[
+            data['CountryExp'] == country, 'deaths_per_capita'
+        ] = deaths / capita
+        data.loc[
+            data['CountryExp'] == country, 'new_cases_per_capita'
+        ] = new_cases / capita
+        data.loc[
+            data['CountryExp'] == country, 'new_deaths_per_capita'
+        ] = new_deaths / capita
 
 
 def print_missing_countries(data, country_map):
