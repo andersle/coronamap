@@ -29,14 +29,19 @@ def get_url_xls():
     return xls, filename
 
 
-def download_if_needed(url, filename, force=False):
+def download_if_needed(url, filename, force=False, progress=None):
     """Download the given file."""
     if force or not pathlib.Path(filename).exists():
         print('Downloading: {}'.format(url))
         response = requests.get(url, stream=True)
+        size = int(response.headers.get('content-length', 0))
         with open(filename, 'wb') as output:
-            for data in response.iter_content():
-                output.write(data)
+            if progress is None:
+                for data in response.iter_content():
+                    output.write(data)
+            else:
+                for data in progress(response.iter_content(), total=size):
+                    output.write(data)
 
 
 def load_countries():
