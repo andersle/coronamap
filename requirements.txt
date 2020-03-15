@@ -4,3 +4,4 @@ lxml
 requests
 folium
 branca
+xlrd
