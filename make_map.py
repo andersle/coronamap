@@ -131,7 +131,8 @@ def norm_population(data, population):
         pop = population.loc[population['Region'] == country]
         if len(pop) != 1:
             continue
-        capita = pop['Population_2020'].values[0]
+        capita = pop['Population_2020'].values[0]  # in thousands
+        capita /= 100 # in hundred thousands 
         datai = data.loc[data['CountryExp'] == country]
         cases = datai['cases'].values
         deaths = datai['deaths'].values
