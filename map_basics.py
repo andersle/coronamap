@@ -107,7 +107,7 @@ def get_min_max(data, countries, column, log=True):
     min_value = 0.0
     max_value = 0.0
     for country in countries:
-        datai = data.loc[data['CountryExp'] == country]
+        datai = data.loc[data['country'] == country]
         if len(datai) == 0:
             continue
         values = datai[column].values
@@ -132,7 +132,7 @@ def add_cases_to_geojson(data, geojson, column):
     """Add cases to the geojson properties field."""
     for feature in geojson['features']:
         name = feature['properties']['name'].lower()
-        datai = data.loc[data['CountryExp'] == name]
+        datai = data.loc[data['country'] == name]
         if len(datai) == 0:
             feature['properties'][column] = '0'
         else:
@@ -167,7 +167,7 @@ def create_style(data, geojson, column, countries, color_map,
     """
     style_dict = {}
     for country in countries:
-        datai = data.loc[data['CountryExp'] == country]
+        datai = data.loc[data['country'] == country]
         if len(datai) == 0:
             continue
         values = datai[column].values
@@ -236,7 +236,7 @@ def create_style_dicts(data, geojson, column, countries=None,
 
     """
     if countries is None:
-        countries = list(sorted(data['CountryExp'].unique()))
+        countries = list(sorted(data['country'].unique()))
     mini, maxi = get_min_max(data, countries, column, log=log)
     if min_value is None:
         min_value = mini
@@ -287,7 +287,7 @@ def create_folium_map(geojson, data, map_settings):
 
     use_logscale = map_settings.get('logscale', True)
 
-    column = map_settings.get('column', 'cases')
+    column = map_settings.get('column', 'sum_cases')
     column_name = map_settings.get('column_name', 'Cases')
 
     styles, color_map = create_style_dicts(
@@ -329,7 +329,7 @@ def create_folium_map(geojson, data, map_settings):
     ).add_to(the_map)
 
     if use_logscale:
-        color_map.caption = '{} (log2 scale)'.format(column_name)
+        color_map.caption = '{} (log scale)'.format(column_name)
     else:
         color_map.caption = column_name
     the_map.add_child(color_map)
@@ -344,7 +344,7 @@ def do_log(values):
         if i <= 0:
             log.append(float('nan'))
         else:
-            log.append(np.log2(i))
+            log.append(np.log(i))
     return log
 
 
@@ -374,9 +374,9 @@ def create_folium_choropleth(geojson, data, map_settings):
 
     use_logscale = map_settings.get('logscale', True)
 
-    countries = list(sorted(data['CountryExp'].unique()))
+    countries = list(sorted(data['country'].unique()))
 
-    column = map_settings.get('column', 'cases')
+    column = map_settings.get('column', 'sum_cases')
     column_name = map_settings.get('column_name', 'Cases')
 
     print('Log:', use_logscale)
@@ -406,7 +406,7 @@ def create_folium_choropleth(geojson, data, map_settings):
         log=use_logscale,
         threshold=map_settings.get('threshold', None)
     )
-    dates = (data['DateRep'].unique().astype(int) // 10**9).astype('U10')
+    dates = (data['date'].unique().astype(int) // 10**9).astype('U10')
     # Restructure style dict to contain dates:
     style_dict = {}
     for key, val in styles.items():
@@ -420,7 +420,7 @@ def create_folium_choropleth(geojson, data, map_settings):
     ).add_to(the_map)
 
     if use_logscale:
-        color_map.caption = '{} (log2 scale)'.format(column_name)
+        color_map.caption = '{} (log scale)'.format(column_name)
     else:
         color_map.caption = column_name
     the_map.add_child(color_map)

@@ -16,14 +16,16 @@ def get_url_xls():
         'https://www.ecdc.europa.eu/en/publications-data/'
         'download-todays-data-geographic-distribution-covid-19-cases-worldwide'
     )
+
     page = requests.get(base)
     tree = html.fromstring(page.content)
     xpath = '//a/@href'
     xls = None
     for i in tree.xpath(xpath):
-        if i.endswith('.xls'):
+        if i.endswith('.xls') or i.endswith('.xlsx'):
             xls = i
             break
+    filename = None
     if xls is not None:
         filename = pathlib.Path(xls).name
     return xls, filename
@@ -61,9 +63,23 @@ def load_countries():
 def read_raw_data(filename):
     """Read the raw data from a xls file."""
     data = pd.read_excel(filename)
-    dates = list(sorted(data['DateRep'].unique()))
-    for key in ('CountryExp', 'GeoId', 'Gaul1Nuts1', 'EU'):
+
+    rename = {
+        'DateRep': 'date',
+        'Day': 'day',
+        'Month': 'month',
+        'Year': 'year',
+        'Cases': 'new_cases',
+        'Deaths': 'new_deaths',
+        'Countries and territories': 'country',
+        'GeoId': 'geoid',
+    }
+    data = data.rename(rename, axis='columns')
+    dates = list(sorted(data['date'].unique()))
+    for key in ('country', 'geoid'):
         data[key] = data[key].str.lower()
+    # Replace "_" by space in country name:
+    data['country'] = data['country'].str.replace('_',' ')
     return data, dates
 
 
@@ -78,53 +94,45 @@ def add_cumulative(raw_data, dates):
     """Add cumulative data."""
     # Sort data by date and country:
     # Get all countries:
-    countries = list(sorted(raw_data['CountryExp'].unique()))
+    countries = list(sorted(raw_data['country'].unique()))
     # For each country, check if we are missing dates:
-    missing_data = {
-        'DateRep': [],
-        'CountryExp': [],
-        'NewConfCases': [],
-        'NewDeaths': [],
-        'GeoId': [],
-        'Gaul1Nuts1': [],
-        'EU': [],
-    }
+    missing_data = {i: [] for i in raw_data.columns}
     for country in countries:
-        datai = raw_data.loc[raw_data['CountryExp'] == country]
-        datesi = datai['DateRep'].values
-        missing = [i for i in dates if i not in datesi]
+        datai = raw_data.loc[raw_data['country'] == country]
+        datesi = datai['date'].values
+        missing_dates = [i for i in dates if i not in datesi]
         # Add missing data with zeros:
-        for i in missing:
-            missing_data['DateRep'].append(i)
-            missing_data['CountryExp'].append(country)
-            missing_data['NewConfCases'].append(0)
-            missing_data['NewDeaths'].append(0)
-            missing_data['GeoId'].append(datai['GeoId'].values[-1])
-            missing_data['Gaul1Nuts1'].append(datai['Gaul1Nuts1'].values[-1])
-            missing_data['EU'].append(datai['EU'].values[-1])
+        for i in missing_dates:
+            missing_data['date'].append(i)
+            missing_data['country'].append(country)
+            missing_data['new_cases'].append(0)
+            missing_data['new_deaths'].append(0)
+            for key in missing_data:
+                if key not in {'date', 'country', 'new_cases', 'new_deaths'}:
+                    missing_data[key].append(datai[key].values[-1])
         # Sort this data on the date:
     missing_data = pd.DataFrame(missing_data)
     raw_data2 = raw_data.copy()
     raw_data2 = raw_data2.append(missing_data, verify_integrity=True,
                                  ignore_index=True)
-    data = raw_data2.sort_values(by=['CountryExp', 'DateRep'])
+    data = raw_data2.sort_values(by=['country', 'date'])
     data = data.reset_index(drop=True)
-    data['cases'] = float('nan')
-    data['deaths'] = float('nan')
+    data['sum_cases'] = float('nan')
+    data['sum_deaths'] = float('nan')
     for country in countries:
-        datai = data.loc[data['CountryExp'] == country]
-        cases = datai['NewConfCases'].cumsum()
-        deaths = datai['NewDeaths'].cumsum()
-        data.loc[data['CountryExp'] == country, 'cases'] = cases
-        data.loc[data['CountryExp'] == country, 'deaths'] = deaths
+        datai = data.loc[data['country'] == country]
+        cases = datai['new_cases'].cumsum()
+        deaths = datai['new_deaths'].cumsum()
+        data.loc[data['country'] == country, 'sum_cases'] = cases
+        data.loc[data['country'] == country, 'sum_deaths'] = deaths
     return data
 
 
 def norm_population(data, population):
     """Normalize data by population."""
-    countries = list(sorted(data['CountryExp'].unique()))
-    data['cases_per_capita'] = float('nan')
-    data['deaths_per_capita'] = float('nan')
+    countries = list(sorted(data['country'].unique()))
+    data['sum_cases_per_capita'] = float('nan')
+    data['sum_deaths_per_capita'] = float('nan')
     data['new_cases_per_capita'] = float('nan')
     data['new_deaths_per_capita'] = float('nan')
     for country in countries:
@@ -133,22 +141,22 @@ def norm_population(data, population):
             continue
         capita = pop['Population_2020'].values[0]  # in thousands
         capita /= 100 # in hundred thousands 
-        datai = data.loc[data['CountryExp'] == country]
-        cases = datai['cases'].values
-        deaths = datai['deaths'].values
-        new_cases = datai['NewConfCases'].values
-        new_deaths = datai['NewDeaths'].values
+        datai = data.loc[data['country'] == country]
+        cases = datai['sum_cases'].values
+        deaths = datai['sum_deaths'].values
+        new_cases = datai['new_cases'].values
+        new_deaths = datai['new_deaths'].values
         data.loc[
-            data['CountryExp'] == country, 'cases_per_capita'
+            data['country'] == country, 'sum_cases_per_capita'
         ] = cases / capita
         data.loc[
-            data['CountryExp'] == country, 'deaths_per_capita'
+            data['country'] == country, 'sum_deaths_per_capita'
         ] = deaths / capita
         data.loc[
-            data['CountryExp'] == country, 'new_cases_per_capita'
+            data['country'] == country, 'new_cases_per_capita'
         ] = new_cases / capita
         data.loc[
-            data['CountryExp'] == country, 'new_deaths_per_capita'
+            data['country'] == country, 'new_deaths_per_capita'
         ] = new_deaths / capita
 
 
@@ -156,7 +164,7 @@ def print_missing_countries(data, country_map):
     """Print info on countries we are missing in the geo json data."""
     missing = []
     fet = {key.lower() for key in country_map}
-    for i in list(sorted(data['CountryExp'].unique())):
+    for i in list(sorted(data['country'].unique())):
         if i not in fet:
             missing.append(i)
     if missing:
