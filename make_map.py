@@ -63,16 +63,17 @@ def load_countries():
 def read_raw_data(filename):
     """Read the raw data from a xls file."""
     data = pd.read_excel(filename)
+    data.columns = [i.lower().replace(' ','') for i in data.columns]
 
     rename = {
-        'DateRep': 'date',
-        'Day': 'day',
-        'Month': 'month',
-        'Year': 'year',
-        'Cases': 'new_cases',
-        'Deaths': 'new_deaths',
-        'Countries and territories': 'country',
-        'GeoId': 'geoid',
+        'daterep': 'date',
+        'day': 'day',
+        'month': 'month',
+        'year': 'year',
+        'cases': 'new_cases',
+        'deaths': 'new_deaths',
+        'countriesandterritories': 'country',
+        'geoId': 'geoid',
     }
     data = data.rename(rename, axis='columns')
     dates = list(sorted(data['date'].unique()))
