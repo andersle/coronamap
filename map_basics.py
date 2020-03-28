@@ -25,9 +25,36 @@ COLORS = {
 }
 
 
+TILES = {
+    'topo4graatone': {
+        'url': (
+            'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?'
+            'layers=topo4graatone&zoom={z}&x={x}&y={y}'
+        ),
+        'attr': (
+            '<a href="http://www.kartverket.no/">Kartverket</a>',
+        ),
+        },
+    'topo4': {
+        'url': (
+            'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?'
+            'layers=topo4&zoom={z}&x={x}&y={y}'
+        ),
+        'attr': (
+            '<a href="http://www.kartverket.no/">Kartverket</a>',
+        ),
+    },
+}
+
+
+
 def load_json_file(filename):
     """Load data from a json file."""
     data = {}
+    try:
+        suff = filename.suffixes
+    except AttributeError:
+        filename = pathlib.Path(filename)
     print('Loading file "{}"'.format(filename))
     if '.gz' in filename.suffixes:
         with gzip.open(filename, 'rt') as zipfile:
